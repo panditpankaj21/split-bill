@@ -4,10 +4,11 @@ import {
     Outlet
 } from "react-router-dom"
 import CreateGroup from "./CreateGroup";
+import GroupCard from "./GroupCard";
 
 export default function Groups(){
     const [isSelect, setIsSelect] = useState(false);
-    const [groups, setGroups] = useState([]);
+    const [groups, setGroups] = useState([{name: "pankaj"}, {name: "pankaj"}, {name: "pankaj"}, {name: "pankaj"}]);
 
     // using useEffect get data of all groups create by current user
 
@@ -22,7 +23,17 @@ export default function Groups(){
                     + New Group
                 </button>
             </div>}
-            {isSelect && <CreateGroup setIsSelect={setIsSelect}/>}
+            {
+                isSelect && <CreateGroup setIsSelect={setIsSelect}/>
+            }
+
+            {
+                !isSelect &&
+                <div className="grid grid-cols-2 px-52 gap-x-2 gap-y-2 mt-4">
+
+                    {groups.map((group, index) => <GroupCard key={index}/>)}
+                </div>
+            }
 
         </div>
         
