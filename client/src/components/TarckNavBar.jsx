@@ -19,7 +19,7 @@ export default function TrackNavBar(){
                     Balances
                 </NavLink>
                 <NavLink 
-                    to="/1/status" 
+                    to="/1/stats" 
                     className={({ isActive }) =>
                     `font-semibold px-2 py-1 rounded ${isActive ? 'bg-black' : ''}`}
                 >

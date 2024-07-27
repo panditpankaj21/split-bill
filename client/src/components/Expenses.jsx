@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import ExpenseCard from "./ExpenseCard";
-import CreateExpenseForm from "./CreateExpenseForm";
+import CreateExpenseForm from "../forms/CreateExpenseForm";
 
 export default function Expenses(){
 

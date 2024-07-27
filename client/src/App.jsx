@@ -10,7 +10,7 @@ import Expenses from "./components/Expenses";
 import Balances from "./components/Balances";
 import Activity from "./components/Activity";
 import Settings from "./components/Settings";
-import Status from "./components/Status";
+import Stats from "./components/Stats";
 import TrackNavBar from "./components/TarckNavBar";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
           <Route path="balances" element={<Balances/>}/>
           <Route path="activity" element={<Activity/>}/>
           <Route path="settings" element={<Settings/>}/>
-          <Route path="status" element={<Status/>}/>
+          <Route path="stats" element={<Stats/>}/>
         </Route>
       </Routes>
     </Router>

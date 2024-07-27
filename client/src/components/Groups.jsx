@@ -3,7 +3,7 @@ import {
     Link,
     Outlet
 } from "react-router-dom"
-import CreateGroup from "./CreateGroup";
+import CreateGroupForm from "../forms/CreateGroupForm";
 import GroupCard from "./GroupCard";
 
 export default function Groups(){
@@ -24,7 +24,7 @@ export default function Groups(){
                 </button>
             </div>}
             {
-                isSelect && <CreateGroup setIsSelect={setIsSelect}/>
+                isSelect && <CreateGroupForm setIsSelect={setIsSelect}/>
             }
 
             {
