@@ -12,6 +12,23 @@ const groupMemberSchema = mongoose.Schema({
     }
 })
 
+const expensesHistorySchema = mongoose.Schema({
+    expenseTitle:{
+        type:String,
+        required: true
+    },
+    paidBy:{
+        type: String,
+        required: true
+    }, 
+    paidFor:[{
+        type: String
+    }],
+    time:{
+        type: String
+    }
+}, {timestamps: true})
+
 const groupSchema = new mongoose.Schema({
     groupName:{
         type: String,
@@ -27,7 +44,10 @@ const groupSchema = new mongoose.Schema({
     totalGroupSpending:{
         type: Number,
         required: true,
-    }
+    },
+    expensesHistory:[
+        expensesHistorySchema,
+    ]
 }, {timestamps: true})
 
 const Group = mongoose.model("group", groupSchema);

@@ -1,18 +1,37 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import ExpenseCard from "./ExpenseCard";
 import CreateExpenseForm from "../forms/CreateExpenseForm";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectGroupById } from "../store/groupSlice";
+import { selectGroupById, fetchGroupById } from "../store/groupSlice";
 
 
 export default function Expenses(){
-    const {groupId} = useParams();
-    const group = useSelector((state)=> selectGroupById(state, groupId));
-    const [expensesHistory, setExensesHistory] = useState([]);
+    const { groupId } = useParams();
+    const [group, setGroup] = useState([]);
     const [isFormPageActive, setIsFormPageActive] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    //using useEffect set the expensesHistory by calling api
+    useEffect(() => {
+        async function fetchGroup(){
+            setIsLoading(true)
+            const response = await fetch(`http://localhost:8000/api/v1/groups/${groupId}`);
+            const data = await response.json();
+            console.log("data", data)
+            setGroup(data);
+            setIsLoading(false);
+        }
+
+        fetchGroup();
+        
+    }, []);
+
+
+    if(isLoading) return <div>Loading...</div>
+
+    const expensesHistory = group.expensesHistory;
+
+    console.log(expensesHistory)
 
     return(
         <div>
@@ -33,7 +52,7 @@ export default function Expenses(){
 
             <div>
                 {
-                    expensesHistory.length ? expensesHistory.map((expense, index)=> <ExpenseCard key={index}/>) : 
+                    expensesHistory?.length ? expensesHistory.map((expense, index)=> <ExpenseCard key={index}/>) : 
                     <p 
                         className="py-7"
                     >

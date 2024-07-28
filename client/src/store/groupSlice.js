@@ -61,6 +61,11 @@ export const createExpense = createAsyncThunk(
 
 )
 
+export const fetchGroupById = createAsyncThunk('groups/fetchGroupById', async (groupId) => {
+    const response = await fetch(`http://localhost:8000/api/v1/groups/${groupId}`);
+    return response.data;
+  });
+
 const groupSlice = createSlice({
     name: 'groups',
     initialState: {

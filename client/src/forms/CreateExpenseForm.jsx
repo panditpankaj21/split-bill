@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createExpense } from "../store/groupSlice";
+import { createExpense, fetchGroups } from "../store/groupSlice";
 
 export default function CreateExpenseForm({
     setIsFormPageActive,
@@ -24,13 +24,15 @@ export default function CreateExpenseForm({
 
     const handleSubmit = () => {
         const expenseData = {
+            expenseTitle,
+            time:expenseDate,
             groupId: group._id,
             amountPaid: parseInt(amount),
             payerId: payerId,
             membersPaidFor: paidFor
         };
         dispatch(createExpense(expenseData));
-
+        setIsFormPageActive(false);
     };
 
     return (
