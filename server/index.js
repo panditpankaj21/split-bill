@@ -1,15 +1,19 @@
 const express = require("express")
 const connectDB = require("./db/index")
+const cors = require("cors")
 const {
     createNewGroup,
     updateMembersAmount,
-    getAllGroups
+    getAllGroups,
+    deleteGroup
 } = require("./controllers/group.controller.js")
+
 
 const app = express();
 const PORT=8000;
 
 //Middleware
+app.use(cors());
 app.use(express.json());
 
 
@@ -27,3 +31,4 @@ connectDB("mongodb://127.0.0.1:27017/groups")
 app.post('/api/v1/create-group', createNewGroup)
 app.post('/api/v1/update-members-amount', updateMembersAmount)
 app.get('/api/v1/groups', getAllGroups)
+app.delete('/api/v1/group/:groupId', deleteGroup)

@@ -1,10 +1,14 @@
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
 import ExpenseCard from "./ExpenseCard";
 import CreateExpenseForm from "../forms/CreateExpenseForm";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { selectGroupById } from "../store/groupSlice";
+
 
 export default function Expenses(){
-
+    const {groupId} = useParams();
+    const group = useSelector((state)=> selectGroupById(state, groupId));
     const [expensesHistory, setExensesHistory] = useState([]);
     const [isFormPageActive, setIsFormPageActive] = useState(false);
 
@@ -47,7 +51,11 @@ export default function Expenses(){
         </div>
         }
         {
-            isFormPageActive && <CreateExpenseForm setIsFormPageActive={setIsFormPageActive}/>
+            isFormPageActive &&
+            <CreateExpenseForm 
+                setIsFormPageActive={setIsFormPageActive}
+                group={group}
+            />
         }
 
         </div>

@@ -1,5 +1,12 @@
+import { useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
+import { selectGroupById } from "../store/groupSlice";
 
 export default function Balances(){
+    const params = useParams();
+    const group = useSelector((state) => selectGroupById(state, params.groupId));
+
+
     return(
         <div className="mt-5 w-full pb-5">
             <div className="bg-stone-900 rounded-lg p-5">
@@ -9,10 +16,9 @@ export default function Balances(){
                 </div>
                 <div className="flex justify-center items-center mt-5">
                     <ul>
-                        <li className="mb-2">John: $30</li>
-                        <li className="mb-2">John: $30</li>
-                        <li className="mb-2">John: $30</li>
-                        <li className="mb-2">John: $30</li>
+                        {
+                            group.groupMembers.map((member) => <li className="mb-2" key={member._id}>{member.name}: {group.symbol}{member.currentBalance}</li>)
+                        }
                     </ul>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
-import Groups from "./components/Groups";
+import GroupList from "./components/GroupList";
 import Expenses from "./components/Expenses";
 import Balances from "./components/Balances";
 import Activity from "./components/Activity";
@@ -20,8 +20,8 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/groups" element={<Groups/>} />
-        <Route path="/:id" element={<TrackNavBar/>} >
+        <Route path="/groups" element={<GroupList/>} />
+        <Route path="/:groupId" element={<TrackNavBar/>} >
           <Route path="expenses" element={<Expenses/>}/>
           <Route path="balances" element={<Balances/>}/>
           <Route path="activity" element={<Activity/>}/>

@@ -1,16 +1,30 @@
-import { useState } from "react"
-import {
-    Link,
-    Outlet
-} from "react-router-dom"
+import { useState, useEffect } from "react"
 import CreateGroupForm from "../forms/CreateGroupForm";
 import GroupCard from "./GroupCard";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchGroups } from "../store/groupSlice";
+
 
 export default function Groups(){
+    const dispatch = useDispatch();
+    const groups = useSelector((state) => state.groups.groups);
+    const status = useSelector((state) => state.groups.status);
+    const error = useSelector((state) => state.groups.error);
     const [isSelect, setIsSelect] = useState(false);
-    const [groups, setGroups] = useState([{name: "pankaj"}, {name: "pankaj"}, {name: "pankaj"}, {name: "pankaj"}]);
 
-    // using useEffect get data of all groups create by current user
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchGroups());
+        }
+    }, [status, dispatch]);
+
+    if (status === 'loading') {
+        return <div>Loading...</div>;
+    }
+
+    if (status === 'failed') {
+        return <div>Error: {error}</div>;
+    }
 
 
     return(
@@ -31,7 +45,7 @@ export default function Groups(){
                 !isSelect &&
                 <div className="grid grid-cols-2 px-52 gap-x-2 gap-y-2 mt-4">
 
-                    {groups.map((group, index) => <GroupCard key={index}/>)}
+                    {groups.map((group) => <GroupCard key={group._id} groupInfo={group}/>)}
                 </div>
             }
 
@@ -39,3 +53,4 @@ export default function Groups(){
         
     )
 }
+

@@ -81,8 +81,30 @@ const getAllGroups = async (req, res) => {
     }
 };
 
+const deleteGroup = async (req, res)=>{
+    const {groupId} = req.params;
+
+    if(!groupId){
+        return res.status(400).json({messgae: "Group ID is required"});
+    }
+
+    try {
+        const group = await Group.findByIdAndDelete(groupId);
+
+        if(!group){
+            return res.status(404).json({message: "Group not found"});
+        }
+
+        return res.status(200).json({message: "group Deleted Successfully", group});
+        
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
 module.exports = {
     createNewGroup,
     updateMembersAmount,
-    getAllGroups
+    getAllGroups,
+    deleteGroup,
 };
