@@ -1,37 +1,12 @@
 import { useState, useEffect } from "react"
 import ExpenseCard from "./ExpenseCard";
 import CreateExpenseForm from "../forms/CreateExpenseForm";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { selectGroupById, fetchGroupById } from "../store/groupSlice";
-
+import { useOutletContext } from "react-router-dom";
 
 export default function Expenses(){
-    const { groupId } = useParams();
-    const [group, setGroup] = useState([]);
-    const [isFormPageActive, setIsFormPageActive] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        async function fetchGroup(){
-            setIsLoading(true)
-            const response = await fetch(`http://localhost:8000/api/v1/groups/${groupId}`);
-            const data = await response.json();
-            console.log("data", data)
-            setGroup(data);
-            setIsLoading(false);
-        }
-
-        fetchGroup();
-        
-    }, []);
-
-
-    if(isLoading) return <div>Loading...</div>
-
+    const [group] = useOutletContext();
     const expensesHistory = group.expensesHistory;
-
-    console.log(expensesHistory)
+    const [isFormPageActive, setIsFormPageActive] = useState(false)
 
     return(
         <div>

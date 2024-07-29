@@ -13,7 +13,13 @@ export default function ExpenseCard({group, expense}){
                     className="text-sm text-gray-500"
                 >
                     Paid by <span className="font-semibold text-gray-400">{expense.paidBy}</span> for 
-                    &nbsp;{expense.paidFor.map((ex) => <span className="font-semibold text-gray-400">{`${ex}, `}</span>)}
+                    &nbsp;{expense.paidFor.map((ex, index) => 
+                    <span 
+                        className="font-semibold text-gray-400"
+                        key={index}
+                    >
+                        {`${ex}${expense.paidFor.length > index+1 ? ", " : ""}`}
+                    </span>)}
                 </p>
                 <p className="text-sm">{formatDateString(expense.time)}</p>
             </div>

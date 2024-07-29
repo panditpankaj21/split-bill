@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 
-export const fetchGroups = createAsyncThunk('groups/fetchGroups', async () => {
+export const fetchGroups = createAsyncThunk(
+    'groups/fetchGroups', async () => {
     const response = await fetch('http://localhost:8000/api/v1/groups');
     const data = await response.json();
     return data;
@@ -36,12 +37,7 @@ export const deleteGroup = createAsyncThunk(
 
         return groupId;
     }
-)
-
-export const selectGroupById = (state, groupId) => {
-    return state.groups.groups.find(group => group._id === groupId);
-};
-
+);
 
 export const createExpense = createAsyncThunk(
     'groups/createExpense',
@@ -59,12 +55,8 @@ export const createExpense = createAsyncThunk(
         return response.json();
     }
 
-)
+);
 
-export const fetchGroupById = createAsyncThunk('groups/fetchGroupById', async (groupId) => {
-    const response = await fetch(`http://localhost:8000/api/v1/groups/${groupId}`);
-    return response.data;
-  });
 
 const groupSlice = createSlice({
     name: 'groups',

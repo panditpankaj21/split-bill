@@ -1,31 +1,7 @@
-import { useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
-import { selectGroupById } from "../store/groupSlice";
-import { useState, useEffect } from "react";
+import { useOutletContext} from "react-router-dom"
 
 export default function Balances(){
-    const { groupId } = useParams();
-    const [group, setGroup] = useState('')
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        async function fetchGroup(){
-            setIsLoading(true)
-            const response = await fetch(`http://localhost:8000/api/v1/groups/${groupId}`);
-            const data = await response.json();
-            console.log("data pankaj", data)
-            setGroup(data);
-            setIsLoading(false);
-        }
-
-        fetchGroup();
-        
-    }, []);
-
-
-    if(isLoading) return <div>Loading...</div>
-    console.log(group)
-
+    const [group] = useOutletContext();
 
     return(
         <div className="mt-5 w-full pb-5">
@@ -38,7 +14,18 @@ export default function Balances(){
                     <ul>
                         {
                             group && 
-                            group.groupMembers.map((member) => <li className="mb-2" key={member._id}>{member.name}: {group.symbol}{member.currentBalance}</li>)
+                            group?.groupMembers?.map((member) => 
+                            <li 
+                                className="mb-3" 
+                                key={member._id}
+                            >
+                                {member.name}: 
+                                <span 
+                                    className={`rounded py-[0.5px] px-4 ml-3 text-white ${member.currentBalance==0 && "bg-orange-500"} ${member.currentBalance>0 && "bg-green-800"} ${member.currentBalance<0 && "bg-red-800"}`}
+                                >
+                                    {group.symbol}{member.currentBalance}
+                                </span>
+                            </li>)
                         }
                     </ul>
                 </div>
