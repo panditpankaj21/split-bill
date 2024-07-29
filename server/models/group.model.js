@@ -26,6 +26,10 @@ const expensesHistorySchema = mongoose.Schema({
     }],
     time:{
         type: String
+    },
+    amount: {
+        type: Number,
+        required: true,
     }
 }, {timestamps: true})
 

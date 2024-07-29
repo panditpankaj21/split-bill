@@ -36,7 +36,7 @@ export default function Expenses(){
     return(
         <div>
         { !isFormPageActive && <div className="bg-stone-800 w-full px-4 py-2 rounded mt-5">
-            <div className="">
+            <div className="mb-5">
                 <div className="flex justify-between">
                     <p className="font-semibold text-2xl">Expenses</p>
                     <button 
@@ -52,7 +52,12 @@ export default function Expenses(){
 
             <div>
                 {
-                    expensesHistory?.length ? expensesHistory.map((expense, index)=> <ExpenseCard key={index}/>) : 
+                    expensesHistory?.length ? expensesHistory.map((expense, index)=> 
+                    <ExpenseCard 
+                        key={index}
+                        group={group}
+                        expense={expense}
+                    />) : 
                     <p 
                         className="py-7"
                     >

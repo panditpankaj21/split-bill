@@ -66,8 +66,9 @@ const updateMembersAmount = async (req, res) => {
         const newExpenses = {
             expenseTitle,
             time,
-            paidBy: payerId,
+            paidBy: payer.name,
             paidFor,
+            amount:amountPaid,
         }
 
         group.expensesHistory.unshift(newExpenses);

@@ -42,7 +42,7 @@ export default function CreateGroup({
                         <p className="font-semibold mb-2">Group Name</p>
                         <input 
                             type="text" 
-                            placeholder="Summer Vacations" 
+                            placeholder="Summer Vacation" 
                             className="bg-black px-2 w-full rounded-md pt-2 pb-1"
                             value={groupName}
                             onChange={(e)=>setGroupName(e.target.value)} 
